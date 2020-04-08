@@ -1,1 +1,12 @@
-GET http://localhost:3000/songs/blindinglights
+GET http://localhost:3000/songs
+
+###
+
+POST http://localhost:3000/songs
+Content-Type: application/json
+
+{
+    "title": "Blinding Lights",
+    "artist": "The Weekend",
+    "pickedToList": "Yes"
+}
