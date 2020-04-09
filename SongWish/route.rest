@@ -10,3 +10,21 @@ Content-Type: application/json
     "artist": "The Weekend",
     "pickedToList": "Yes"
 }
+
+###
+
+GET http://localhost:3000/songs/5e8de2bf2caecd0880c5ee3b
+
+###
+
+DELETE http://localhost:3000/songs/5e8de2d7a460720c3c44ff65
+
+###
+
+PATCH  http://localhost:3000/songs/5e8ef24b843bab0aecc0f3bc
+Content-Type: application/json
+
+{
+    "title": "Blinding Lights",
+    "artist": "The Weekend"
+}
