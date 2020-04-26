@@ -7,6 +7,7 @@ const Songs = require('../models/songs')
 
 // Gettiing API-Requests
 router.get('/api/:songs', (req, res) => {
+    console.log('API')
     const songs = req.params.songs;
     console.log('Request');
     const getData = async (songs) => {

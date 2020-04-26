@@ -1,4 +1,4 @@
-GET http://localhost:3000/songs
+GET http://localhost:3000/songs/api/blindinglights
 
 ###
 
