@@ -11,8 +11,17 @@ db.once('open', () => console.log('Mit Datenbank verbunden'))
 
 app.use(express.json())
 
+const djRouter = require('./routes/dj')
+app.use('/dj', djRouter)
+
 const songsRouter = require('./routes/songs')
 app.use('/songs', songsRouter)
+
+const wsongsRouter = require('./routes/wunschliste')
+app.use('/wunschliste', wsongsRouter)
+
+const sucheRouter = require('./routes/musiksuche')
+app.use('/musiksuche', sucheRouter)
 
 app.listen(3000, () => console.log('Server gestartet'))
 

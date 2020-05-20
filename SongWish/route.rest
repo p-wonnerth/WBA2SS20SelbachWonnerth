@@ -1,8 +1,8 @@
-GET http://localhost:3000/songs/api/blindinglights
+GET http://localhost:3000/musiksuche/atemlos
 
 ###
 
-POST http://localhost:3000/songs
+POST http://localhost:3000/wunschliste
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/songs/5e8de2bf2caecd0880c5ee3b
+GET http://localhost:3000/wunschliste
 
 ###
 
@@ -21,10 +21,24 @@ DELETE http://localhost:3000/songs/5e8de2d7a460720c3c44ff65
 
 ###
 
-PATCH  http://localhost:3000/songs/5e8ef24b843bab0aecc0f3bc
-Content-Type: application/json
+PATCH  http://localhost:3000/wunschliste
 
 {
     "title": "Blinding Lights",
     "artist": "The Weekend"
 }
+
+###
+
+POST http://localhost:3000/dj
+Content-Type: application/json
+
+{
+    "name": "Wonnerth",
+    "vorname": "Philipp",
+    "kuenstlerName": "DJ-P"
+}
+
+###
+
+GET http://localhost:3000/dj

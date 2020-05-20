@@ -5,37 +5,13 @@ const Songs = require('../models/songs')
 
 
 
-// Gettiing API-Requests
-router.get('/api/:songs', (req, res) => {
-    console.log('API')
-    const songs = req.params.songs;
-    console.log('Request');
-    const getData = async (songs) => {
-            console.log('Hi')
-            try {
-                const res = await fetch(`https://orion.apiseeds.com/api/music/search/?q=${songs}&apikey=A3Ws3ljpfcTMFW4U6TRa6lmHC0yX8xsa5fsJIKwI7MxuFEMEwTkwqShjGPv9tDMh`)
-                const fetchData = await res.json();
-
-                let i;
-                for (i=0; i<fetchData.length; i++) {
-                    console.log('Titel: ',fetchData.result[i].title,
-                                'Interpret: ',fetchData.result[i].artist,
-                                'Album: ', fetchData.result[i].album);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        } 
-    getData(songs);  
-})
-
 //Alle songs die der DJ abspielen kann
 router.get('/', async (req, res) => {
     try {      
         const songs = await Songs.find()
-        const sortedByVotes = songs.sort(function (a, b) {
+        /*const sortedByVotes = songs.sort(function (a, b) {
             return b.votes - a.votes
-        })
+        })*/
         res.json(songs)
     } catch (error){
         console.log(error)
@@ -51,33 +27,13 @@ router.get('/:id', getSong, (req, res) => {
 router.post('/', async (req, res) => {
     const songs = new Songs ({
     title: req.body.title,
-    artist: req.body.artist,
-    pickedToList: req.body.pickedToList
+    artist: req.body.artist
     })
      try {      
         const newSongs = await songs.save()
         res.status(201).json(newSongs)
     } catch (err) {
         res.status(400).json({ message: err.message })
-    }
-})
-
-//Updating One
-router.patch('/:id', getSong, async (req, res) => {
-    if (req.body.title != null) {
-        res.song.title = req.body.title
-    }
-    if (req.body.artist != null) {
-        res.song.artist = req.body.artist
-    }
-    if (req.body.title == res.song.title &&
-        req.body.artist == res.song.artist)
-        ++res.song.votes
-    try {
-        const updatedSong = await res.song.save()
-        res.json(updatedSong)
-    } catch(err) {
-        res.status(400).json({ message: err.message})
     }
 })
 
@@ -106,8 +62,6 @@ async function getSong(req, res, next) {
     res.song = song
     next()
 }
-
-//Nach votes sortieren
 
 
 module.exports = router

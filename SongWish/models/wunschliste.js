@@ -13,6 +13,11 @@ const songsSchema = new mongoose.Schema({
       type: String,
       required: true  
     },
+    votes: {
+      type: Number,
+      required: true,
+      default: 0
+    },
     pickDate: {
       type: Date,
       required: true,
@@ -20,4 +25,4 @@ const songsSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Songs', songsSchema)
+module.exports = mongoose.model('WSongs', songsSchema)
