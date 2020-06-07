@@ -6,7 +6,7 @@ POST http://localhost:3000/wunschliste
 Content-Type: application/json
 
 {
-    "title": "Blinding Lights",
+    "title": "Lights",
     "artist": "The Weekend",
     "pickedToList": "Yes"
 }
@@ -17,16 +17,23 @@ GET http://localhost:3000/wunschliste
 
 ###
 
-DELETE http://localhost:3000/songs/5e8de2d7a460720c3c44ff65
+DELETE http://localhost:3000/songs
 
 ###
 
-PATCH  http://localhost:3000/wunschliste
+PATCH  http://localhost:3000/wunschliste/5ec54d5acc43f229289082b0
+Content-Type: application/json
 
 {
     "title": "Blinding Lights",
     "artist": "The Weekend"
 }
+
+###
+
+PATCH  http://localhost:3000/wunschliste
+Content-Type: application/json
+
 
 ###
 
@@ -42,3 +49,13 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/dj
+
+###
+
+PUT http://localhost:3000/songs/5e8e18a1f571fb0f30a864f8
+Content-Type: application/json
+
+{
+    "title": "Atmelos",
+    "artist": "Helene Fischer"
+}

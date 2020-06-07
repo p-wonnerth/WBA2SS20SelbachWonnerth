@@ -23,6 +23,19 @@ router.get('/:id', getDJ, (req, res) => {
     res.json(res.dj)
 })
 
+//Alle DJs
+router.get('/', async (req, res) => {
+    try {      
+        const djs = await Dj.find()
+        /*const sortedByVotes = songs.sort(function (a, b) {
+            return b.votes - a.votes
+        })*/
+        res.json(djs)
+    } catch (error){
+        console.log(error)
+    }
+})
+
 async function getDJ(req, res, next) {
     let dj
     try {

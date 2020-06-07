@@ -48,6 +48,22 @@ router.delete('/:id', getSong, async (req, res) => {
     }
 })
 
+//Song verändern
+router.put('/:id', getSong, async (req, res) => {
+    try {
+        if (req.body.title != null) {
+            res.song.title = req.body.title
+        }
+        if (req.body.artist != null) {
+            res.song.artist = req.body.artist
+        }
+        const updatedSong = await res.song.save()
+        res.json(updatedSong)
+    } catch(err) {
+        res.status(400).json({ message: err.message})
+    }
+})
+
 async function getSong(req, res, next) {
     let song
     try {

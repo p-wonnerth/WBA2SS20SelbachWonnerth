@@ -19,7 +19,6 @@ router.post('/', async (req, res) => {
 })
 
 //Vote counter
-
 router.patch('/:id', getSong, async (req, res) => {
     if (req.body.title != null) {
         res.song.title = req.body.title
@@ -55,14 +54,57 @@ async function getSong(req, res, next) {
 
 //Alle
 router.get('/', async (req, res) => {
-    try {      
+
+    try {  
+
+        function sortVotes(vote) {    
+            return function(a, b) {    
+                if (a[vote] < b[vote]) {    
+                    return 1;    
+                } else if (a[vote] > b[vote]) {    
+                    return -1;    
+                }    
+                return 0;    
+            }    
+        }
+
         const songs = await WSongs.find()
+        console.log(songs.sort(GetSortOrder("votes")))       
         res.json(songs)
     } catch (error){
         console.log(error)
     }
 })
 
-//nach votes sortieren
+//Liste sortieren
+router.patch('/', async (req, res) => {
+    if (req.body.title != null) {
+        res.song.title = req.body.title
+    }
+    if (req.body.artist != null) {
+        res.song.artist = req.body.artist
+    }
+    if (req.body.title == res.song.title &&
+        req.body.artist == res.song.artist)
+        ++res.song.votes
+    try {
+        const updatedSong = await res.song.save()
+        res.json(updatedSong)
+    } catch(err) {
+        res.status(400).json({ message: err.message})
+    }
+})
 
+
+//nach votes sortieren
+function GetSortOrder(prop) {    
+    return function(a, b) {    
+        if (a[prop] > b[prop]) {    
+            return 1;    
+        } else if (a[prop] < b[prop]) {    
+            return -1;    
+        }    
+        return 0;    
+    }    
+}
 module.exports = router
