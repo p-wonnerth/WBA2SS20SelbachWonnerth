@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/wunschliste
+GET http://localhost:3000/songs
 
 ###
 
@@ -21,7 +21,7 @@ DELETE http://localhost:3000/songs
 
 ###
 
-PATCH  http://localhost:3000/wunschliste/5ec54d5acc43f229289082b0
+PUT  http://localhost:3000/songs/5eea3a8c1177ec0f28b4bf24
 Content-Type: application/json
 
 {
@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/dj
+GET http://localhost:3000/dj/5ec53d94b1d0541b3cb2798f
 
 ###
 
