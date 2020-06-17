@@ -11,7 +11,7 @@ const songsSchema = new mongoose.Schema({
     },
     pickedToList: {
       type: String,
-      required: true  
+      required: false  
     },
     pickDate: {
       type: Date,

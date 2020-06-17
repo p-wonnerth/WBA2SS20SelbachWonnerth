@@ -27,12 +27,20 @@ router.get('/:id', getDJ, (req, res) => {
 router.get('/', async (req, res) => {
     try {      
         const djs = await Dj.find()
-        /*const sortedByVotes = songs.sort(function (a, b) {
-            return b.votes - a.votes
-        })*/
         res.json(djs)
+        console.log('request made')
     } catch (error){
         console.log(error)
+    }
+})
+
+//Dj löschen
+router.delete('/:id', getDJ, async (req, res) => {
+    try {
+        await res.dj.remove()
+        res.json({ kuenstlerName: res.dj.kuenstlerName, message: 'wurde gelöscht' })
+    } catch(err) {
+        res.status(500).json({ message: err.message})
     }
 })
 
@@ -47,6 +55,7 @@ async function getDJ(req, res, next) {
         return res.status(500).json({ message: err.message})
     }
     
+    console.log('GET-Request')
     res.dj = dj
     next()
 }
