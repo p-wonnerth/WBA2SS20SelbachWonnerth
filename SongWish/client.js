@@ -3,7 +3,8 @@ const fetch = require('node-fetch')
 
 const Url = 'http://localhost:3000/'
 const djId = ""
-const songId = "5eea3a8c1177ec0f28b4bf24"
+const songId = ""
+const wsongId = "5eccfb135929d80e78a50d53"
 
 //DJ-Funktionen
 //Dj erstellen
@@ -127,7 +128,63 @@ async function changeSong(url = Url, data = {}) {
     console.log(data)
 }); */
 
+//Wunschlisten-Funktionen
+async function postWsong(url = Url, data = {}) {
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(data)
+    })
+    return res.json();
+}
 
+async function getAllWsongs() {
+    fetch(Url + 'wunschliste')
+.then(data => {return data.json()})
+.then(res=>{console.log(res)})
+}
+
+async function deleteWSong(url = Url, id = wsongId) {
+    const res = await fetch(url, {
+        method: 'DELETE'
+    })
+    return res.json();
+}
+
+async function voteSong(url = Url, data = {}) {
+    const res = await fetch(Url + 'wunschliste/' + wsongId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    return res.json();
+}
+
+
+
+
+//Aufruf der verschiedenen Wunschlisten-Funktionen
+/* postWsong(Url + 'wunschliste', { title: "Mockingbird", artist: "Eminem"})
+.then(data => {
+    console.log(data)
+}); */
+
+/* getAllWsongs(); */
+
+/* deleteSong(Url + 'wunschliste/' + wsongId, )
+.then(id => {
+    console.log(id)
+}) */
+
+/* voteSong(Url + 'wunschliste/' + wsongId, { title: "Lights", artist: "The Weekend"})
+.then(data => {
+    console.log(data)
+});
+ */
 
 
 

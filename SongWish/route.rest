@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/songs
+GET http://localhost:3000/wunschliste/5ec54d5dcc43f229289082b1
 
 ###
 
@@ -48,14 +48,14 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/dj/5ec53d94b1d0541b3cb2798f
+GET http://localhost:3000/wunschliste
 
 ###
 
-PUT http://localhost:3000/songs/5e8e18a1f571fb0f30a864f8
+PUT http://localhost:3000/wunschliste/5eccfb135929d80e78a50d53
 Content-Type: application/json
 
 {
-    "title": "Atmelos",
-    "artist": "Helene Fischer"
+    "title": "Lights",
+    "artist": "The Weekend"
 }

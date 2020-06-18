@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 })
 
 //Vote counter
-router.patch('/:id', getSong, async (req, res) => {
+router.put('/:id', getSong, async (req, res) => {
     if (req.body.title != null) {
         res.song.title = req.body.title
     }
@@ -34,6 +34,16 @@ router.patch('/:id', getSong, async (req, res) => {
         res.json(updatedSong)
     } catch(err) {
         res.status(400).json({ message: err.message})
+    }
+})
+
+//WSong löschen
+router.delete('/:id', getSong, async (req, res) => {
+    try {
+        await res.song.remove()
+        res.json({ title: res.song.title, message: 'wurde gelöscht' })
+    } catch(err) {
+        res.status(500).json({ message: err.message})
     }
 })
 
@@ -56,18 +66,6 @@ async function getSong(req, res, next) {
 router.get('/', async (req, res) => {
 
     try {  
-
-        function sortVotes(vote) {    
-            return function(a, b) {    
-                if (a[vote] < b[vote]) {    
-                    return 1;    
-                } else if (a[vote] > b[vote]) {    
-                    return -1;    
-                }    
-                return 0;    
-            }    
-        }
-
         const songs = await WSongs.find()
         console.log(songs.sort(GetSortOrder("votes")))       
         res.json(songs)
@@ -76,32 +74,13 @@ router.get('/', async (req, res) => {
     }
 })
 
-//Liste sortieren
-router.patch('/', async (req, res) => {
-    if (req.body.title != null) {
-        res.song.title = req.body.title
-    }
-    if (req.body.artist != null) {
-        res.song.artist = req.body.artist
-    }
-    if (req.body.title == res.song.title &&
-        req.body.artist == res.song.artist)
-        ++res.song.votes
-    try {
-        const updatedSong = await res.song.save()
-        res.json(updatedSong)
-    } catch(err) {
-        res.status(400).json({ message: err.message})
-    }
-})
-
 
 //nach votes sortieren
 function GetSortOrder(prop) {    
     return function(a, b) {    
-        if (a[prop] > b[prop]) {    
+        if (a[prop] < b[prop]) {    
             return 1;    
-        } else if (a[prop] < b[prop]) {    
+        } else if (a[prop] > b[prop]) {    
             return -1;    
         }    
         return 0;    
